@@ -5,7 +5,7 @@ import time
 import os
 import select
 
-def knock(host, knock_seq, delay, protocol):
+def knock(host, knock_seq, delay):
     """Knock host and port using tcp connection"""
     for port_proto in knock_seq:
         port = port_proto.split(':')[0]
@@ -32,5 +32,5 @@ ports = os.getenv('PORTS', default='1992:tcp,2991:udp').split(',')
 interval = os.getenv('INTERVAL_IN_MIN', default='60')
 delay = os.getenv('DELAY_IN_SEC', default='5')
 
-While True:
-    knock(ip, ports, delay, proto)
+while True:
+    knock(ip, ports, delay)
