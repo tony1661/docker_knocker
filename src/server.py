@@ -33,4 +33,4 @@ interval = os.getenv('INTERVAL_IN_MIN', default='60')
 delay = os.getenv('DELAY_IN_SEC', default='5')
 
 while True:
-    
+    knock(ip, ports, delay)
