@@ -12,14 +12,21 @@ def knock(host, knock_seq, delay):
         port = port_proto.split(':')[0]
         protocol = port_proto.split(':')[1]
         if protocol == 'tcp':
-            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.setblocking(False)
-            sock.connect_ex((host,int(port)))
-            select.select([sock], [sock], [sock], 0)
+            try:
+                sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                sock.setblocking(False)
+                sock.connect_ex((host,int(port)))
+                select.select([sock], [sock], [sock], 0)
+                break
+            except:
+                print("Failure when trying to execute TCP Knock")
         else:
-            sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-            sock.setblocking(False)
-            sock.sendto(b'', (host,int(port)))
+            try:
+                sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+                sock.setblocking(False)
+                sock.sendto(b'', (host,int(port)))
+            except:
+                print("Failure when trying to execute UDP Knock")
 
         sock.close()
         time.sleep(int(delay))
